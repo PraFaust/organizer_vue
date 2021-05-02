@@ -1,0 +1,39 @@
+{
+    "selfname": "tranlate",
+    "text":[
+        {
+            "txt_widgets_h":[
+                {"ru": "Виджеты"},
+                {"en": "Widgets"}
+            ],
+            "txt_lang_h":[
+                {"ru": "Язык"},
+                {"en": "Lang"}
+            ],
+            "txt_welcome_h":[
+                {"ru": "Добро пожаловать!"},
+                {"en": "Welcome"}
+            ],
+            "txt_weather_h":[
+                {"ru": "Погода"},
+                {"en": "Weather"}
+            ],
+            "txt_calc_h":[
+                {"ru": "Калькулятор"},
+                {"en": "Calculator "}
+            ],
+            "txt_notes_h":[
+                {"ru": "Заметки"},
+                {"en": "Notes"}
+            ],
+            "txt_timer_h":[
+                {"ru": "Таймер"},
+                {"en": "Timer"}
+            ],
+            "txt_todo_h":[
+                {"ru": "Список дел"},
+                {"en": "TODO list"}
+            ]
+        }
+    ]
+}

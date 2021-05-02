@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import translate from './utils/translate.js'
 
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
@@ -22,5 +23,6 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
+  translate,
   render: h => h(App)
 }).$mount('#app')
