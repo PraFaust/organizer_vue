@@ -67,10 +67,19 @@
 // 	});
 // }
 
-import $ from 'jquery'
+//import $ from 'jquery'
+
+// TODO - так лучше
+// var txtJSON = new Object();
+
+// $.getJSON( "../../src/translate.json", function( data ) {
+//     txtJSON = data;
+// });
+
+const translate_txt = require('../utils/translate_obj.js');
 
 function translate_get_string(json_name, lang){
-    $.getJSON( "../translate.json", function( data ) {
+    $.getJSON( "../../src/translate.json", function( data ) {
         var indexLang;
 
         if(lang == "ru"){indexLang = 0;}
@@ -80,4 +89,16 @@ function translate_get_string(json_name, lang){
     });
 }
 
-export {translate_get_string}
+
+function translate_get_string_js(json_name, lang){
+
+    var indexLang;
+    var data = translate_txt.lang_obj;
+    if(lang == "ru"){indexLang = 0;}
+    else if(lang == "en"){indexLang = 1;}
+
+    return data['text'][0][json_name][indexLang][lang];
+
+}
+
+export {translate_get_string, translate_get_string_js}
