@@ -1,7 +1,7 @@
 <template>
 <div>
   <template>
-      <b-button variant="secondary">Welcome {{user}}</b-button>
+      <b-button variant="secondary">{{get_text('txt_welcome_h')}} {{user}}</b-button>
   </template>
 </div>
 </template>
@@ -14,7 +14,6 @@ export default {
   data(){
       return{
         msg: "Welcome!",
-
       }
   },
   computed: {
@@ -30,16 +29,7 @@ export default {
     }
   },
   methods: {
-    lang_set: function(lang) {
-      if(lang==='en'){
-        console.log("choose lang 1");
-      }else if(lang==='ru'){
-        console.log("choose lang 2");
-      }
-      this.$store.dispatch("CHANGE_LANGUAGE", lang);
-    },
     get_text: function(json_name){
-      console.log(`on get_text lang is ${this.languge}`);
       return translate.translate_get_string_js(json_name, this.languge);
     },
   }

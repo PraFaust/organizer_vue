@@ -32,7 +32,7 @@ let lang_obj = {
                 {"en": "Sign In"}
             ],
             "txt_welcome_h":[
-                {"ru": "Добро пожаловать!"},
+                {"ru": "Добро пожаловать"},
                 {"en": "Welcome"}
             ],
             "txt_weather_h":[

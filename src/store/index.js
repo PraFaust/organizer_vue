@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    language: "en",
+    language: localStorage.getItem('lang') || "en",
     token: localStorage.getItem('token') || '',
     user : {
       valid: localStorage.getItem('valid'),

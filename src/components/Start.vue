@@ -43,9 +43,12 @@
 <script>
 const translate = require('../utils/translate.js');
 const authenticator = require('../utils/authenticator.js');
+
 import Profile from '@/components/Profile.vue'
 import Welcome from '@/components/Welcome.vue'
 import Autoriz from '@/components/Autorization.vue'
+
+import {bus} from '../main.js'
 
 export default {
   name: 'Start',
@@ -77,17 +80,15 @@ export default {
       }
     }
   },
+  mounted: function () {
+      bus.$on('login_done', this.login_done);
+  },
   methods: {
     lang_set: function(lang) {
-      if(lang==='en'){
-        console.log("choose lang 1");
-      }else if(lang==='ru'){
-        console.log("choose lang 2");
-      }
+      localStorage.setItem('lang', lang)
       this.$store.dispatch("CHANGE_LANGUAGE", lang);
     },
     get_text: function(json_name){
-      console.log(`on get_text lang is ${this.languge}`);
       return translate.translate_get_string_js(json_name, this.languge);
     },
     go_main: function(){
@@ -103,9 +104,13 @@ export default {
       UO.name = "";
       UO.valid = false;
       this.$store.dispatch("ADD_USER", UO);
+      this.selectComponent = Welcome;
     },
     sign_in: function(){
       this.selectComponent = Autoriz;
+    },
+    login_done: function(){
+      this.selectComponent = Profile;
     }
   }
 }

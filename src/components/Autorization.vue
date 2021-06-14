@@ -102,6 +102,8 @@
 
 const authenticator = require('../utils/authenticator.js');
 
+import {bus} from '../main.js'
+
 export default {
   name: 'Autorization',
   data () {
@@ -137,6 +139,13 @@ export default {
       readonlyInput: false,
       showLoader: false,
     }
+  },
+  computed:{
+    languge: {
+      get: function(){
+        return this.$store.getters.LANGUAGE;
+      },
+    },
   },
   methods: {
     checkLogin: function () {
@@ -235,6 +244,7 @@ export default {
         UO.name = this.loginData.login;
         UO.valid = true;
         this.$store.dispatch("ADD_USER", UO);
+        bus.$emit('login_done');
       }
     },
 
@@ -243,7 +253,7 @@ export default {
       this.showLoader = false;
       let response = new Object();
       response = JSON.parse(data)
-      console.log(`login is ${response.login}`)
+      console.log(`login is ${response.login}`) //true - login free, false - login not available
       this.usernameSubmitted = response.login;
       if(response.login){
         this.msg = `Hello, ${this.registerData.username}! Registration success!`;
@@ -255,11 +265,15 @@ export default {
         UO.valid = true;
         this.$store.dispatch("ADD_USER", UO);
         authenticator.auth_user_check();
+        bus.$emit('login_done');
       }else{
         this.readonlyInput = false;
         this.showLoader = false;
       }
-    }
+    },
+    get_text: function(json_name){
+      return translate.translate_get_string_js(json_name, this.languge);
+    },
   }
 
 }
