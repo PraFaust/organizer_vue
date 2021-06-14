@@ -1,7 +1,8 @@
 <template>
 <div>
   <template>
-      <b-button variant="secondary">{{get_text('txt_welcome_h')}} {{user}}</b-button>
+      <h1 v-if="user!=''">{{get_text('txt_welcome_h')}} {{user}}!</h1>
+      <h1 v-if="user==''">{{get_text('txt_welcome_h')}}!</h1>
   </template>
 </div>
 </template>

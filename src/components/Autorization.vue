@@ -21,7 +21,7 @@
                       <b-alert :show="loginWarnings.userNotRegistered" variant="danger">User with this login or password not found. Please try again or register.</b-alert>
                     </b-card-text>
                     <b-button v-if="!showLoader" class="btn-lg btn-block" variant="info" @click="checkLogin()">Login!</b-button>
-                    <b-button v-if="showLoader" class="btn-lg btn-block" style="padding: 1.25rem 1rem;" variant="info"> 
+                    <b-button v-if="showLoader" :disabled="true" class="btn-lg btn-block" style="padding: 1.25rem 1rem;" variant="info"> 
                       <div class="loader"></div>
                     </b-button>
                   </b-tab>
@@ -86,7 +86,7 @@
                       <b-alert :show="loginWarnings.userRegistrationWarning" variant="danger">Please check all fields</b-alert>
                     </b-card-text>
                     <b-button v-if="!showLoader" class="btn-lg btn-block" variant="info" @click="registerUser()">Register!</b-button>
-                    <b-button v-if="showLoader" class="btn-lg btn-block" style="padding: 1.25rem 1rem;" variant="info"> 
+                    <b-button v-if="showLoader" :disabled="true" class="btn-lg btn-block" style="padding: 1.25rem 1rem;" variant="info"> 
                       <div class="loader"></div>
                     </b-button>
                   </b-tab>
@@ -253,7 +253,7 @@ export default {
       this.showLoader = false;
       let response = new Object();
       response = JSON.parse(data)
-      console.log(`login is ${response.login}`) //true - login free, false - login not available
+      console.log(`login is ${response.login}`) //true - login free and assigned, false - login not available
       this.usernameSubmitted = response.login;
       if(response.login){
         this.msg = `Hello, ${this.registerData.username}! Registration success!`;
