@@ -27,6 +27,10 @@ let lang_obj = {
                 {"ru": "Выйти"},
                 {"en": "Sign Out"}
             ],
+            "txt_signIn_h":[
+                {"ru": "Войти"},
+                {"en": "Sign In"}
+            ],
             "txt_welcome_h":[
                 {"ru": "Добро пожаловать!"},
                 {"en": "Welcome"}

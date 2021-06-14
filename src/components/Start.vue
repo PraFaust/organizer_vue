@@ -18,8 +18,9 @@
         </b-nav-item-dropdown>
 
         <b-nav-item-dropdown :text="get_text('txt_user_h')" right>
-          <b-dropdown-item-button @click="go_profile()">{{this.get_text('txt_profile_h')}}</b-dropdown-item-button>
-          <b-dropdown-item-button @click="sign_out()">{{this.get_text('txt_signOut_h')}}</b-dropdown-item-button>
+          <b-dropdown-item-button v-if="check_user.valid" @click="go_profile()">{{this.get_text('txt_profile_h')}}</b-dropdown-item-button>
+          <b-dropdown-item-button v-if="check_user.valid" @click="sign_out()">{{this.get_text('txt_signOut_h')}}</b-dropdown-item-button>
+          <b-dropdown-item-button v-if="!check_user.valid" @click="sign_in()">{{this.get_text('txt_signIn_h')}}</b-dropdown-item-button>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
@@ -28,7 +29,7 @@
   <template>
     <b-card
       overlay
-      img-src="../assets/SiteBar.png"
+      img-src="../assets/SiteBar.jpg"
       img-alt="Card Image"
       img-width="1000"
       >
@@ -44,12 +45,14 @@ const translate = require('../utils/translate.js');
 const authenticator = require('../utils/authenticator.js');
 import Profile from '@/components/Profile.vue'
 import Welcome from '@/components/Welcome.vue'
+import Autoriz from '@/components/Autorization.vue'
 
 export default {
   name: 'Start',
   components: {
     Welcome,
-    Profile
+    Profile,
+    Autoriz,
   },
   data(){
       let last_user = localStorage.getItem('last_user');
@@ -58,7 +61,7 @@ export default {
         selectComponent: Welcome,
         user:{
           login: last_user,
-          password:"",
+          valid: authenticator.auth_user_check(),
         }
       }
   },
@@ -70,7 +73,7 @@ export default {
     },
     check_user:{
       get: function(){
-
+       return this.$store.getters.USER;
       }
     }
   },
@@ -91,11 +94,19 @@ export default {
       this.selectComponent = Welcome
     },
     go_profile: function(){
+      console.dir(this.user.login);
       this.selectComponent = Profile
     },
     sign_out: function(){
-
+      this.user.valid = authenticator.auth_user_logout();
+      var UO = new Object();
+      UO.name = "";
+      UO.valid = false;
+      this.$store.dispatch("ADD_USER", UO);
     },
+    sign_in: function(){
+      this.selectComponent = Autoriz;
+    }
   }
 }
 </script>

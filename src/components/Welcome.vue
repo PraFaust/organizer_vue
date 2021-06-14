@@ -1,8 +1,7 @@
 <template>
 <div>
   <template>
-      <b-button variant="secondary">Welcome</b-button>
-      
+      <b-button variant="secondary">Welcome {{user}}</b-button>
   </template>
 </div>
 </template>
@@ -15,6 +14,7 @@ export default {
   data(){
       return{
         msg: "Welcome!",
+
       }
   },
   computed: {
@@ -23,6 +23,11 @@ export default {
         return this.$store.getters.LANGUAGE;
       },
     },
+    user:{
+      get: function(){
+        return this.$store.getters.USER.name;
+      }
+    }
   },
   methods: {
     lang_set: function(lang) {

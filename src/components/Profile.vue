@@ -1,7 +1,7 @@
 <template>
 <div>
   <template>
-      <b-button variant="secondary">PROFILE</b-button>
+      <b-button variant="secondary">{{user.name}}</b-button>
   </template>
 </div>
 </template>
@@ -13,7 +13,8 @@ export default {
   name: 'Profile',
   data(){
       return{
-        msg: "Profile!",
+        msg: "PROFILE",
+        user: this.$store.getters.USER,
       }
   },
   computed: {
