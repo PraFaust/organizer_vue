@@ -47,6 +47,7 @@ const authenticator = require('../utils/authenticator.js');
 import Profile from '@/components/Profile.vue'
 import Welcome from '@/components/Welcome.vue'
 import Autoriz from '@/components/Autorization.vue'
+import Workspace from '@/components/Workspace.vue'
 
 import {bus} from '../main.js'
 
@@ -56,6 +57,7 @@ export default {
     Welcome,
     Profile,
     Autoriz,
+    Workspace,
   },
   data(){
       let last_user = localStorage.getItem('last_user');
@@ -92,7 +94,11 @@ export default {
       return translate.translate_get_string_js(json_name, this.languge);
     },
     go_main: function(){
-      this.selectComponent = Welcome
+      if(this.check_user.valid){
+        this.selectComponent = Workspace
+      }else{
+        this.selectComponent = Welcome
+      }
     },
     go_profile: function(){
       console.dir(this.user.login);

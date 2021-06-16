@@ -1,7 +1,7 @@
 <template>
 <div>
   <template>
-      <b-button variant="secondary">{{get_text('txt_profile_h')}} {{user.name}}</b-button>
+      <h1>{{get_text('txt_profile_h')}} {{user.name}}</h1>
   </template>
 </div>
 </template>
