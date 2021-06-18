@@ -34,7 +34,9 @@
       img-width="1000"
       >
         <!-- selectComponent вернёт строку с нужным названием компонента -->
+      <transition name="component-fade-fast" mode="out-in">
         <component v-bind:is="selectComponent"></component>
+      </transition>
     </b-card>
   </template>
 </div>

@@ -1,0 +1,15 @@
+.component-fade-enter-active, .component-fade-leave-active {
+    transition: opacity 1.0s ease;
+}
+.component-fade-enter, .component-fade-leave-to
+    /* .component-fade-leave-active до версии 2.1.8 */ {
+    opacity: 0;
+}
+
+.component-fade-fast-enter-active, .component-fade-leave-active {
+    transition: opacity 0.5s ease;
+}
+.component-fade-fast-enter, .component-fade-leave-to
+    /* .component-fade-leave-active до версии 2.1.8 */ {
+    opacity: 0;
+}

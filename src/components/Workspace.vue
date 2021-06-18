@@ -12,9 +12,11 @@
             </b-col>
             <b-col lg = 9>
                 <b-card title="Drop here...">
-                  <div v-for="widget in workComponent" :key="widget.name">
-                    <component v-bind:is="widget" destination="normal"></component>
-                  </div>
+                  <transition-group name="component-fade" mode="out-in" tag="div">
+                    <div v-for="(widget, i) in workComponent" :key="widget + i">
+                        <component v-bind:is="widget" destination="normal"></component>
+                    </div>
+                  </transition-group>
                 </b-card>
             </b-col>
         </b-row>
