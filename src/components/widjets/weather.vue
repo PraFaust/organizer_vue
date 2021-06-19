@@ -2,7 +2,7 @@
 <div>
   <template v-if="destination=='mini'">
       <b-card>
-        <h1>{{get_text('txt_weather_h')}} </h1>
+        <h3>{{get_text('txt_weather_h')}} </h3>
       </b-card>
   </template>
 
