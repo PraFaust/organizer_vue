@@ -1,9 +1,9 @@
 <template>
-<div>
+<div class=" non-adaptive">
     <h1>{{user}} Workspace</h1>
     <b-container fluid class="mt--7">
         <b-row class="justify-content-center">
-            <b-col lg = 3>
+            <b-col cols="3">
               <b-card title="Widgets">
                 <l-container @drop="onDrop" group-name="wg">
                   <l-draggable v-for="widget in listComponent" :key="widget.name">
@@ -14,7 +14,7 @@
                 </l-container>
               </b-card>
             </b-col>
-            <b-col lg = 9>
+            <b-col cols="9">
                 <b-card title="Drop here or click on <Widgets>...">
                   <l-container group-name="wg">
                    <transition-group name="slide-fade" mode="out-in" tag="div">

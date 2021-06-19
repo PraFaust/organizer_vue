@@ -154,3 +154,11 @@
 .draggable-item{
   cursor: pointer;
 }
+
+@media (max-width: 1280px){
+  .non-adaptive{
+    overflow-x: auto;
+    min-width: 1280px;
+    background:#c3fffc;
+  }
+}
