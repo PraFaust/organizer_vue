@@ -11,6 +11,7 @@ export default new Vuex.Store({
       valid: localStorage.getItem('valid'),
       name: localStorage.getItem('last_user'),
     },
+    widgetList: [],
   },
   getters: {
     LANGUAGE: state=>{
@@ -18,7 +19,10 @@ export default new Vuex.Store({
     },
     USER: state=>{
       return state.user;
-    }
+    },
+    WIDGET: state =>{
+      return state.widgetList;
+    },
   },
   mutations: {
     SET_LANGUAGE: (state, payload) => {
@@ -27,6 +31,16 @@ export default new Vuex.Store({
     SET_USER: (state, payload) => {
       state.user = payload;
     },
+    SET_WIDGET:(state, payload)=>{
+      state.widgetList.push(payload);
+      localStorage.setItem('wl', state.widgetList);
+    },
+    DLT_WIDGET: (state, payload) => {
+      //state.widgetList.splice(state.widgetList.indexOf(payload, 0), 1);
+      state.widgetList[state.widgetList.indexOf(payload)] = '';
+      localStorage.setItem('wl', state.widgetList);
+    },
+
   },
   actions: {
     CHANGE_LANGUAGE: (context, payload) => {
@@ -35,6 +49,13 @@ export default new Vuex.Store({
     ADD_USER: (context, payload) => {
       context.commit('SET_USER', payload);
     },
+    ADD_WIDGET: (context, payload) => {
+      context.commit('SET_WIDGET', payload);
+    },
+    DEL_WIDGET: (context, payload) => {
+      context.commit('DLT_WIDGET', payload);
+    },
+
   },
   modules: {
   }

@@ -23,7 +23,7 @@
                   <l-container group-name="wg" @drop="onDrop('workComponent', $event)">
                     <transition-group name="slide-fade" mode="out-in" tag="div">
                       <div v-for="(widget, i) in workComponent" :key="widget + i">
-                        <l-wcontainer :widjetIn="widget" class="shadow2"></l-wcontainer>
+                        <component v-bind:is="container_w" :widgetIn="widget" :widgetId="i" class="shadow2"></component>
                       </div>
                     </transition-group>
                   </l-container>
@@ -66,8 +66,8 @@ export default {
   data(){
       return{
         msg: "Workspace!",
+        container_w: WContainer,
         listComponent: [],
-        workComponent: [],
       }
   },
   created:function(){
@@ -91,20 +91,29 @@ export default {
         return this.$store.getters.USER.name;
       }
     },
+    workComponent:{
+      get: function(){
+        return this.$store.getters.WIDGET;
+      },
+      set:function(w_name){
+        this.$store.dispatch("ADD_WIDGET", w_name);
+      }
+
+    }
   },
   methods: {
     get_text: function(json_name){
       return translate.translate_get_string_js(json_name, this.languge);
     },
-    add_w: function(widjet){
-      this.workComponent.push(widjet);
-      console.log(`CLCK on ${widjet}`);
+    add_w: function(widget){
+      this.workComponent = widget;
+      console.log(`CLICK on ${widget}`);
     },
     onDrop: function (collection, dropResult) {
       console.log(`drop END`);
       console.log("collection:");
       console.dir(collection);
-      this[collection] = this.applyDrag(this[collection], dropResult)
+      this[collection] = this.applyDrag(this[collection], dropResult);
     },
     getChildPayload: function (index) {
       console.log(`index is ${index}, comp is ${this.listComponent[index]}`);
@@ -120,15 +129,15 @@ export default {
         arr.push(payload);
         console.log("PUSH OK");
       }
-      console.log("arr:");
-      console.dir(arr);
 
-      const result = arr;
-      return result;
+      // const result = arr;
+      //return arr;
     },
-    destroy_w: function(){
-      console.log(`DESTROY!`);
-    }
+    destroy_w: function(widget_id){
+      let comp = this.workComponent[widget_id];
+      console.log(`DESTROY! id = ${widget_id} comp is ${comp}`);
+      this.$store.dispatch("DEL_WIDGET", this.workComponent[widget_id]);
+    },
   }
 }
 </script>

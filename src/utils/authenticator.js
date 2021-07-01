@@ -47,6 +47,7 @@ function auth_user_logout(){
   console.log(`auth_user_logout...`);
   localStorage.removeItem('last_user');
   localStorage.removeItem('valid');
+  localStorage.removeItem('wl');          //widget list
 }
 
 

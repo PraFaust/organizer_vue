@@ -4,17 +4,19 @@
     <template #header>
       <b-row>
         <b-col class="text-left" cols="6">
-          <h3 class="mb-0">{{name}}</h3>
+          <h3 class="mb-0" style="cursor: default">{{name}}</h3>
         </b-col>
         <b-col class="text-right" cols="6">
           <p class="h3 mb-0">
-            <b-icon class="scale-el" icon="plus-circle" variant="primary" rotate="45" @click="destroy()"></b-icon>
+            <b-icon class="scale-el" icon="plus-circle" variant="primary" rotate="45" @click="delete_w()"></b-icon>
           </p>
         </b-col>
       </b-row>
     </template>
   </b-card>
-  <component v-bind:is="child" destination="normal"></component>
+  <div v-if="child!=''">
+    <component v-bind:is="child" destination="normal"></component>
+  </div>
 </div>
 </template>
 
@@ -39,13 +41,16 @@ const included_components = {
 }
 
 export default {
-  name: 'widjetContainer',
+  name: 'widgetContainer',
   components: included_components,
-  props: ['widjetIn'],
+  props: ['widgetIn', 'widgetId'],
   data(){
       return{
-        widjet_included: '',
+        widget_included: '',
       }
+  },
+  destroyed(){
+    console.log(`BYE WC!`);
   },
   computed: {
     languge: {
@@ -55,19 +60,22 @@ export default {
     },
     child:{
       get: function(){
-        console.log(`In computed child input is ${this.widjetIn}`);
-        this.widjet_included = this.widjetIn;
-        return this.widjet_included;
+        console.log(`In computed child input is ${this.widgetIn}, id = ${this.widgetId}`);
+        this.widget_included = this.widgetIn;
+        return this.widget_included;
+      },
+      set: function(val){
+        this.widget_included = val;
       }
     },
     name:{
       get: function(){
         let name
-        if(this.widjetIn.startsWith('w-')){
-          name = this.widjetIn.slice(2);
-          name = name[0].toUpperCase() + name.slice(1);
+        if(this.widgetIn.startsWith('w-')){
+          name = this.widgetIn.slice(2);
+          name = name[0].toUpperCase() + name.slice(1) + "_" + this.widgetId;
         }else{
-          console.log(`ERR, name = ${this.widjetIn}`);
+          console.log(`ERR, name = ${this.widgetIn}`);
           name = 'undefined-widget';
         }
         return name;
@@ -80,10 +88,10 @@ export default {
       return translate.translate_get_string_js(json_name, this.languge);
     },
 
-    destroy: function(){
-      console.log(`Destroy component ${this.widjet_included}`);
-      bus.$emit('destroy_w');
-    }
+    delete_w: function(){
+      console.log(`Delete component ${this.widget_included}`);
+      bus.$emit('destroy_w', this.widgetId);
+    },
   }
 }
 </script>
