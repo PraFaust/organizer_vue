@@ -8,7 +8,9 @@
                 <l-container  group-name="wg"
                               behaviour="copy"
                               drag-class="drag-style"
-                              :get-child-payload="getChildPayload">
+                              :get-child-payload="getChildPayload"
+                              @drag-start="onDragStart"
+                              @drag-end="onDragEnd">
                   <l-draggable v-for="widget in listComponent" :key="widget.name"  class="scale-el-sm">
                     <div class="draggable-item" @click="add_w(widget)">
                       <component v-bind:is="widget" destination="mini"></component>
@@ -69,6 +71,7 @@ export default {
         msg: "Workspace!",
         container_w: WContainer,
         listComponent: [],
+        dragProc: false,
       }
   },
   created:function(){
@@ -107,12 +110,22 @@ export default {
       return translate.translate_get_string_js(json_name, this.languge);
     },
     add_w: function(widget){
-      this.workComponent = widget;
-      console.log(`CLICK on ${widget}`);
+      if(!this.dragProc){
+        this.workComponent = widget;
+        console.log(`CLICK on ${widget}`);
+      }
     },
     getChildPayload: function (index) {
       console.log(`index is ${index}, comp is ${this.listComponent[index]}`);
       return this.listComponent[index];
+    },
+    onDragStart(){
+      console.log(`onDragStart`);
+      this.dragProc = true;
+    },
+    onDragEnd(){
+      console.log(`onDragEnd`);
+      this.dragProc = false;
     },
     onDrop(dropResult) {
       console.log(`drop END`);
