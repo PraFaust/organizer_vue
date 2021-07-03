@@ -49,9 +49,6 @@ export default {
         widget_included: '',
       }
   },
-  destroyed(){
-    console.log(`BYE WC!`);
-  },
   computed: {
     languge: {
       get: function(){

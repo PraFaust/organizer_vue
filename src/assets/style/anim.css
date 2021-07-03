@@ -17,7 +17,18 @@
 .slide-fade-enter-active {
   transition: all 1.0s ease;
 }
+.slide-fade-leave-active {
+  transition: all 1.0s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
 .slide-fade-enter, .slide-fade-leave-to{
   transform: translateX(100px);
-  opacity: 0;
+  opacity: 0.1;
+}
+
+.slide-fade-out-enter-active {
+  transition: all 1.0s ease;
+}
+.slide-fade-out-enter, .slide-fade-out-leave-to{
+  transform: translateX(100px);
+  opacity: 0.5;
 }

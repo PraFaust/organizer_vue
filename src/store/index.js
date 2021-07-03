@@ -36,8 +36,7 @@ export default new Vuex.Store({
       localStorage.setItem('wl', state.widgetList);
     },
     DLT_WIDGET: (state, payload) => {
-      //state.widgetList.splice(state.widgetList.indexOf(payload, 0), 1);
-      state.widgetList[state.widgetList.indexOf(payload)] = '';
+      Vue.set(state.widgetList, payload.id, undefined);
       localStorage.setItem('wl', state.widgetList);
     },
 

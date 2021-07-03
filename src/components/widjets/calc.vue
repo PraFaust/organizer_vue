@@ -27,9 +27,6 @@ export default {
         counter: 0,
       }
   },
-  destroyed(){
-    console.log(`BYE CALC!`);
-  },
   computed: {
     languge: {
       get: function(){

@@ -173,6 +173,17 @@
   scale: 1.0;
 }
 
+.scale-el-sm{
+  cursor: pointer;
+  scale: 1.0;
+}
+.scale-el-sm:hover{
+  scale: 1.1;
+}
+.scale-el-sm:active{
+  scale: 1.0;
+}
+
 .shadow{
   box-shadow: rgba(14, 30, 37, 0.12) 0px 10px 36px 0px,
                 rgba(14, 30, 37, 0.32) 0px 0px 0px 1px;

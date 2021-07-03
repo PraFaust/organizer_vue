@@ -9,9 +9,8 @@
                               behaviour="copy"
                               drag-class="drag-style"
                               :get-child-payload="getChildPayload">
-                  <l-draggable v-for="widget in listComponent" :key="widget.name">
+                  <l-draggable v-for="widget in listComponent" :key="widget.name"  class="scale-el-sm">
                     <div class="draggable-item" @click="add_w(widget)">
-                    <!-- <div class="draggable-item"> -->
                       <component v-bind:is="widget" destination="mini"></component>
                     </div>
                   </l-draggable>
@@ -20,10 +19,12 @@
             </b-col>
             <b-col cols="9">
                 <b-card title="Drop here or click on <Widgets>...">
-                  <l-container group-name="wg" @drop="onDrop('workComponent', $event)">
+                  <l-container group-name="wg" @drop="onDrop">
                     <transition-group name="slide-fade" mode="out-in" tag="div">
-                      <div v-for="(widget, i) in workComponent" :key="widget + i">
-                        <component v-bind:is="container_w" :widgetIn="widget" :widgetId="i" class="shadow2"></component>
+                      <div v-for="(widget, i) in workComponent" :key="i">
+                        <div v-if="widget!=undefined">
+                          <component v-bind:is="container_w" :widgetIn="widget" :widgetId="i" class="shadow2"></component>
+                        </div>
                       </div>
                     </transition-group>
                   </l-container>
@@ -109,34 +110,32 @@ export default {
       this.workComponent = widget;
       console.log(`CLICK on ${widget}`);
     },
-    onDrop: function (collection, dropResult) {
-      console.log(`drop END`);
-      console.log("collection:");
-      console.dir(collection);
-      this[collection] = this.applyDrag(this[collection], dropResult);
-    },
     getChildPayload: function (index) {
       console.log(`index is ${index}, comp is ${this.listComponent[index]}`);
       return this.listComponent[index];
     },
-    applyDrag: function(arr, dragResult){
+    onDrop(dropResult) {
+      console.log(`drop END`);
+      this.applyDrag(this.items, dropResult);
+    },
+    applyDrag(arr, dragResult){
       const { removedIndex, addedIndex, payload } = dragResult;
 
       console.log(`removedIndex ${removedIndex}, addedIndex ${addedIndex}, payload:`);
       console.dir(payload);
 
       if(payload != null){
-        arr.push(payload);
+        this.workComponent = payload
         console.log("PUSH OK");
       }
-
-      // const result = arr;
-      //return arr;
     },
     destroy_w: function(widget_id){
       let comp = this.workComponent[widget_id];
       console.log(`DESTROY! id = ${widget_id} comp is ${comp}`);
-      this.$store.dispatch("DEL_WIDGET", this.workComponent[widget_id]);
+      let obj = new Object();
+      obj.name = this.workComponent[widget_id];
+      obj.id = widget_id;
+      this.$store.dispatch("DEL_WIDGET", obj);
     },
   }
 }
