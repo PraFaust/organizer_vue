@@ -32,6 +32,10 @@ import WTimer from '@/components/widjets/timer.vue'
 import Wtodo from '@/components/widjets/todo.vue'
 import WWeather from '@/components/widjets/weather.vue'
 
+// Sound
+import useSound from 'vue-use-sound'
+import buttonSfx from '../assets/audio/click.mp3'
+
 const included_components = {
   'w-calc': WCalc,
   'w-notes': WNotes,
@@ -48,6 +52,13 @@ export default {
       return{
         widget_included: '',
       }
+  },
+  setup() {
+    const [play] = useSound(buttonSfx)
+
+    return {
+      play,
+    }
   },
   computed: {
     languge: {
@@ -86,6 +97,7 @@ export default {
     },
 
     delete_w: function(){
+      this.play();
       console.log(`Delete component ${this.widget_included}`);
       bus.$emit('destroy_w', this.widgetId);
     },
