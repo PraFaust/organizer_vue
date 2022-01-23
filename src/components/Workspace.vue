@@ -20,17 +20,20 @@
               </b-card>
             </b-col>
             <b-col cols="9">
-                <b-card title="Drop here or click on <Widgets>...">
-                  <l-container group-name="wg" @drop="onDrop">
-                    <transition-group name="slide-fade" mode="out-in" tag="div">
-                      <div v-for="(widget, i) in workComponent" :key="i">
-                        <div v-if="widget!=undefined">
-                          <component v-bind:is="container_w" :widgetIn="widget" :widgetId="i" class="shadow2"></component>
-                        </div>
+              <b-card title="Drop here or click on <Widgets>...">
+                <l-container  group-name="wg" 
+                              @drop="onDrop"
+                              @drag-enter="onDragEnter"
+                              @drag-leave="onDragLeave">
+                  <transition-group name="slide-fade" mode="out-in" tag="div">
+                    <div v-for="(widget, i) in workComponent" :key="i">
+                      <div v-if="widget!=undefined">
+                        <component v-bind:is="container_w" :widgetIn="widget" :widgetId="i" class="shadow2"></component>
                       </div>
-                    </transition-group>
-                  </l-container>
-                </b-card>
+                    </div>
+                  </transition-group>
+                </l-container>
+              </b-card>
             </b-col>
         </b-row>
     </b-container>
@@ -40,6 +43,7 @@
 <script>
 const translate = require('../utils/translate.js');
 
+// add drag and drop funcionality
 import {Container, Draggable} from "vue-smooth-dnd";
 
 import {bus} from '../main.js'
@@ -118,6 +122,12 @@ export default {
     getChildPayload: function (index) {
       console.log(`index is ${index}, comp is ${this.listComponent[index]}`);
       return this.listComponent[index];
+    },
+    onDragEnter(){
+      this.msg = "enter";
+    },
+    onDragLeave(){
+      this.msg = "leave";
     },
     onDragStart(){
       console.log(`onDragStart`);

@@ -60,6 +60,13 @@ export default {
       play,
     }
   },
+  render: function (createElement) {
+    return createElement('div',
+      Array.apply(null, { length: 20 }).map(function () {
+        return createElement('p', 'Привет')
+      })
+    )
+  },
   computed: {
     languge: {
       get: function(){
