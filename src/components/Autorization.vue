@@ -243,6 +243,7 @@ export default {
         var UO = new Object();
         UO.name = this.loginData.login;
         UO.valid = true;
+        UO.token = response.token;
         this.$store.dispatch("ADD_USER", UO);
         bus.$emit('login_done');
       }

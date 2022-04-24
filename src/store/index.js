@@ -10,6 +10,7 @@ export default new Vuex.Store({
     user : {
       valid: localStorage.getItem('valid'),
       name: localStorage.getItem('last_user'),
+      token: localStorage.getItem('token'),
     },
     widgetList: [],
   },
@@ -30,6 +31,7 @@ export default new Vuex.Store({
     },
     SET_USER: (state, payload) => {
       state.user = payload;
+      localStorage.setItem('token', state.user.token);
     },
     SET_WIDGET:(state, payload)=>{
       state.widgetList.push(payload);
