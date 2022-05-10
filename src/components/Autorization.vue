@@ -249,6 +249,7 @@ export default {
       }
     },
 
+    // TODO - сообщение об успехе и необходимости залогиниться
     registerResp: function (data, textStatus, jqXHR) {
       console.log(`registerResp input data: ${data}`)
       this.showLoader = false;
